@@ -21,7 +21,6 @@
       min-height: 100vh;
     }
 
-    /* Header */
     header {
       display: flex;
       align-items: center;
@@ -57,7 +56,6 @@
       letter-spacing: 2px;
     }
 
-    /* Nav icons */
     .nav-icons {
       display: flex;
       align-items: center;
@@ -118,7 +116,6 @@
       display: flex;
     }
 
-    /* Banner (new section under header) */
     .about-banner {
       width: 100%;
       height: 400px;
@@ -147,13 +144,14 @@
       text-transform: uppercase;
     }
 
-    /* About container */
     .about-section {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 60px 20px;
+      flex-direction: column;
+      gap: 40px;
     }
 
     .about-container {
@@ -201,6 +199,16 @@
       border-radius: 50%;
       font-weight: 600;
     }
+    .dropdown-menu a.logout {
+  color: #e74c3c; /* Red text color */
+  font-weight: 600;
+}
+
+.dropdown-menu a.logout:hover {
+  background-color: #fdeaea; /* Light red background on hover */
+  color: #c0392b;
+}
+
   </style>
 </head>
 <body>
@@ -227,14 +235,15 @@
         <a href="shop.html">Shop</a>
         <a href="faq.html">F.A.Q</a>
         <a href="nearest.html">Find Nearest Kiosk</a>
-        <a href="warranty.html">Warranty</a>
-        <a href="frontpage.html">Log out</a>
+        <a href="warranty.html">Warranty & Exchange/Refund</a>
+        <a href="frontpage.html" class="logout" onclick="logout()">Log out</a>
+
       </div>
     </div>
   </header>
 
-  <!-- New Banner -->
   <section class="about-banner">
+    <h1></h1>
   </section>
 
   <section class="about-section">
@@ -246,6 +255,16 @@
 
       <p>What’s more? Every purchase is secured by a limited 1-year warranty.  
       <br>Ready, Sip, N’ Go — the sustainable way!</p>
+    </div>
+
+    <div class="about-container">
+      <h2>Our Mission</h2>
+      <p>Our mission is to offer an environmentally responsible mug that fulfills its function while being of excellent quality, long-lasting, practical, and portable — all while having a stylish appearance that is appropriate for any setting.</p>
+    </div>
+
+    <div class="about-container">
+      <h2>Our Vision</h2>
+      <p>Our vision is to become the leading producer of environmentally friendly mugs that are well-known both domestically and abroad for their distinctive qualities and meaningful purpose for a healthier and more sustainable future.</p>
     </div>
   </section>
 
@@ -282,5 +301,14 @@
     }
     updateCartCount();
   </script>
+  <script>
+  function logout() {
+    localStorage.removeItem("currentUser"); // remove logged user
+    localStorage.removeItem("cartDetails"); // optional: clear cart
+    localStorage.setItem("logoutMessage", "You have been logged out successfully."); // message shown when redirected
+    window.location.href = "index.html"; // redirect to login page
+  }
+</script>
+
 </body>
 </html>

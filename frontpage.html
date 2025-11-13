@@ -367,6 +367,16 @@
       border-radius: 50%;
       font-weight: 600;
     }
+    .dropdown-menu a.logout {
+  color: #e74c3c; /* Red text color */
+  font-weight: 600;
+}
+
+.dropdown-menu a.logout:hover {
+  background-color: #fdeaea; /* Light red background on hover */
+  color: #c0392b;
+}
+
   </style>
 </head>
 <body>
@@ -397,8 +407,10 @@
       <a href="shop.html">Shop</a>
       <a href="fqa.html">F.A.Q</a>
       <a href="nearest.html">Find Nearest Kiosk</a>
-      <a href="warranty.html">Warranty</a>
-      <a href="frontpage.html">Log out</a>
+      <a href="warranty.html">Warranty & Exchange/Refund</a>
+      <a href="frontpage.html" class="logout" onclick="logout()">Log out</a>
+
+
     </div>
   </div>
 </header>
@@ -529,6 +541,14 @@
       // Redirect to frontpage.html
       window.location.href = "frontpage.html";
     });
+  }
+</script>
+<script>
+  function logout() {
+    localStorage.removeItem("currentUser"); // remove logged user
+    localStorage.removeItem("cartDetails"); // optional: clear cart
+    localStorage.setItem("logoutMessage", "You have been logged out successfully."); // message shown when redirected
+    window.location.href = "index.html"; // redirect to login page
   }
 </script>
 

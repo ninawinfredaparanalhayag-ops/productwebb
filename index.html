@@ -120,6 +120,23 @@
       margin-bottom: 10px;
       transition: background 0.3s;
     }
+    .back-btn {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #2f572c;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #2f572c;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #2f572c;
+  color: white;
+}
+
 
     .login-container button:hover {
       background-color: #1f3e1b;
@@ -249,6 +266,14 @@
     }
   </style>
 </head>
+
+<script>
+  // If redirected from logout, show message
+  if (localStorage.getItem("logoutMessage")) {
+    alert(localStorage.getItem("logoutMessage"));
+    localStorage.removeItem("logoutMessage");
+  }
+</script>
 <body>
 
 <header>
@@ -280,6 +305,10 @@
     <div class="signup-link">
       Don't have an account? <a onclick="openSignupModal()">Sign Up</a>
     </div>
+    <button class="back-btn" onclick="window.location.href='frontpage.html'">
+  ← Back to Front Page
+</button>
+
   </div>
 </main>
 
@@ -475,6 +504,7 @@
     initializeUsers();
   });
 </script>
+
 
 </body>
 </html>

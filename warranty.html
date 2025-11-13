@@ -134,35 +134,7 @@
       font-weight: 600;
     }
 
-    /* UPDATED UPPER IMAGE SECTION */
-    .warranty-banner {
-      width: 100%;
-      height: 400px;
-      background: url("7664795c-a6e1-461e-9e4d-5b41d4effc64.jpg") center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .warranty-banner::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      border-bottom: 3px solid #2f572c;
-    }
-
-    .warranty-banner h1 {
-      position: relative;
-      color: #fff;
-      font-size: 36px;
-      font-weight: 700;
-      z-index: 1;
-      text-transform: uppercase;
-    }
-
+    
     /* WARRANTY CONTENT */
     .warranty-container {
       max-width: 800px;
@@ -172,6 +144,35 @@
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+    .exchange-container {
+  max-width: 800px;
+  margin: 30px auto 60px;
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.exchange-container h2 {
+  color: #2f572c;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.exchange-container p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.exchange-container ul {
+  line-height: 1.8;
+  font-size: 16px;
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
 
     .warranty-container h2 {
       color: #2f572c;
@@ -206,6 +207,16 @@
       color: white;
       font-size: 14px;
     }
+    .dropdown-menu a.logout {
+  color: #e74c3c; /* Red text color */
+  font-weight: 600;
+}
+
+.dropdown-menu a.logout:hover {
+  background-color: #fdeaea; /* Light red background on hover */
+  color: #c0392b;
+}
+
   </style>
 </head>
 
@@ -238,19 +249,19 @@
         <a href="shop.html">Shop</a>
         <a href="fqa.html">F.A.Q</a>
         <a href="nearest.html">Find Nearest Kiosk</a>
-        <a href="warranty.html">Warranty</a>
-        <a href="frontpage.html">Log out</a>
+        <a href="warranty.html">Warranty & Exchange/Refund</a>
+        <a href="frontpage.html" class="logout" onclick="logout()">Log out</a>
       </div>
     </div>
   </header>
 
-  <!-- UPDATED WARRANTY BANNER -->
-  <section class="warranty-banner">
-    <h1>Warranty Claim Policy</h1>
-  </section>
+  
 
   <!-- WARRANTY CONTENT -->
   <section class="warranty-container">
+<h2>Warranty Claim Policy</h2>
+
+
     <ol>
       <li>
         <strong>The following conditions are subject to warranty claims:</strong>
@@ -270,6 +281,22 @@
       </li>
     </ol>
   </section>
+
+  <!-- EXCHANGE/RETURN POLICY -->
+<section class="exchange-container">
+  <h2>Exchange / Return Policy</h2>
+  <p><strong>WHAT IS ECO MUG'S EXCHANGE/RETURN POLICY?</strong></p>
+  <ul>
+    <li>We have a <strong>7-day return policy</strong>, which means you have 7 days after receiving your item to request a return.</li>
+    <li>To be eligible for a return, your item must be in the same condition that you received it, meaning it’s unused.</li>
+    <li>Upon receiving and inspection of your return, we will contact you about next steps. Once determined the return is in compliance with our policy, we will either:
+      <ul>
+        <li>(a) refund the price of the product returned to your original payment method;</li>
+        <li>(b) exchange the product for another size or color, subject to availability.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
 
   <footer>
     &copy; 2025 Eco Mug. All rights reserved.
@@ -298,6 +325,14 @@
     }
     updateCartCount();
   </script>
+<script>
+  function logout() {
+    localStorage.removeItem("currentUser"); // remove logged user
+    localStorage.removeItem("cartDetails"); // optional: clear cart
+    localStorage.setItem("logoutMessage", "You have been logged out successfully."); // message shown when redirected
+    window.location.href = "index.html"; // redirect to login page
+  }
+</script>
 
 </body>
 </html>
