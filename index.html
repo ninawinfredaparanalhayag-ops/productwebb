@@ -71,6 +71,23 @@
       background-color: #3b6e38;
     }
 
+    .guest-btn {
+      width: 100%;
+      background-color: #6b8e23;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .guest-btn:hover {
+      background-color: #7fae3d;
+    }
+
     .signup-link {
       text-align: center;
       margin-top: 15px;
@@ -124,6 +141,9 @@
       <button type="submit" class="btn">Login</button>
     </form>
 
+    <!-- Guest / Dashboard Button -->
+    <button class="guest-btn" id="guestBtn">View Shop as Guest</button>
+
     <div class="signup-link">
       Don't have an account? <a href="signup.html">Sign Up</a>
     </div>
@@ -140,6 +160,7 @@
 
     const errorDiv = document.getElementById("error");
 
+    // Login form handler
     document.getElementById("loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -159,6 +180,12 @@
 
       // Redirect to homepage
       window.location.href = "frontpage.html";
+    });
+
+    // Guest / Dashboard button
+    document.getElementById("guestBtn").addEventListener("click", () => {
+      localStorage.removeItem("currentUser"); // make sure no user is logged in
+      window.location.href = "shop.html"; // go to your shop/dashboard
     });
   </script>
 </body>
