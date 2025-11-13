@@ -329,6 +329,13 @@
 </div>
 
 <script>
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (currentUser) {
+    window.location.href = "frontpage.html";
+  }
+</script>
+
+<script>
   // Show / Hide Password Function
   const togglePassword = document.getElementById("togglePassword");
   const passwordInput = document.getElementById("password");
