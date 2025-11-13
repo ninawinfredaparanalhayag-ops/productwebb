@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mug | Ready, Sip, N' Go!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f3;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f4f7f3;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    .logo span {
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 2px;
+    }
+
+    /* Nav icons */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      color: #2f572c;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-icons i,
+    .nav-icons a i {
+      color: #2f572c;
+      transition: color 0.3s ease;
+    }
+
+    .nav-icons i:hover,
+    .nav-icons a i:hover {
+      color: #3b6e38;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      text-decoration: none;
+      color: #2f572c;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f7f2;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 40px;
+      overflow: hidden;
+      background: url("2e313dd5-e479-43c9-ba4c-79aaa316260e.jpg") center/cover no-repeat;
+      background-attachment: fixed;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(47, 87, 44, 0.45);
+      z-index: 0;
+      backdrop-filter: blur(5px);
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      max-width: 1100px;
+      width: 100%;
+      gap: 50px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slider {
+      position: relative;
+      width: 50%;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      cursor: pointer;
+      font-size: 22px;
+      color: #2f572c;
+      padding: 8px 12px;
+      border-radius: 50%;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .text-content {
+      width: 50%;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    .text-content h2 {
+      font-size: 30px;
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .text-content p {
+      font-size: 16px;
+      color: #f3f3f3;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .shop-btn {
+      background: none;
+      border: 1.5px solid #fff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .shop-btn:hover {
+      background-color: #ffffff;
+      color: #2f572c;
+    }
+
+    /* Product Section */
+    .products-section {
+      padding: 60px 40px;
+      text-align: center;
+      background-color: #fff;
+    }
+
+    .products-section h2 {
+      color: #2f572c;
+      font-size: 28px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .product-card {
+      background-color: #f4f7f3;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 280px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .product-card h3 {
+      color: #2f572c;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      position: relative;
+      color: white;
+      text-align: center;
+      padding: 60px 40px;
+      background: url("2e313dd5-e479-43c9-ba4c-79aaa316260e.jpg") center/cover no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(47, 87, 44, 0.45);
+      z-index: 0;
+      backdrop-filter: blur(5px);
+    }
+
+    .contact-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-section h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .contact-section p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .contact-icons a {
+      color: white;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .contact-icons a:hover {
+      color: #d3d3d3;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-content {
+        flex-direction: column;
+      }
+
+      .slider, .text-content {
+        width: 100%;
+      }
+
+      .hero {
+        padding: 30px;
+      }
+
+      .text-content h2 {
+        font-size: 24px;
+      }
+
+      .product-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    .cart-container {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+    <div>
+      <h1>ECO MUG</h1>
+      <span>READY, SIP, N' GO!</span>
+    </div>
+  </div>
+  <div class="nav-icons">
+    <div class="cart-container">
+      <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+      <div class="cart-badge" id="cart-count">0</div>
+    </div>
+    <a href="profile.html" class="profile-link">
+      <i class="fa-solid fa-user"></i>
+    </a>
+    <i class="fa-solid fa-bars" id="menu-toggle"></i>
+
+    <!-- Dropdown -->
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="frontpage.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="shop.html">Shop</a>
+      <a href="fqa.html">F.A.Q</a>
+      <a href="nearest.html">Find Nearest Kiosk</a>
+      <a href="warranty.html">Warranty</a>
+      <a href="index.html">Log out</a>
+    </div>
+  </div>
+</header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="slider">
+        <div class="slide active">
+          <img src="54e04d5b-e448-47e9-a3b3-66f2a0d450a4.jpg" alt="Eco Mug 1">
+        </div>
+        <div class="slide">
+          <img src="7664795c-a6e1-461e-9e4d-5b41d4effc64.jpg" alt="Eco Mug 2">
+        </div>
+        <button class="slider-btn prev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="slider-btn next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+      <div class="text-content">
+        <h2>Sustainable and Functional Mug</h2>
+        <p>Discover functional mugs with unique compartments designed for your essentials. Ready, Sip, N' Go!</p>
+        <button class="shop-btn" onclick="window.location.href='shop.html'">SHOP NOW</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="products-section">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="943a2d32-6eb4-4536-b95e-ae0998c08a5c.jpg" alt="Eco Mug Classic">
+        <h3>MUGTAINER (11oz)</h3>
+        <p>₱250.00</p>
+      </div>
+      <div class="product-card">
+        <img src="a8468218-7781-45ac-8fb0-f03eb8bdd3e7.jpg" alt="Eco Mug Traveler">
+        <h3>CUZTOMIZED MUGTAINER (11oz)</h3>
+        <p>₱300.00</p>
+      </div>
+      <div class="product-card">
+        <img src="a343dd71-8c0e-4ecf-85c5-1240faa6769b.jpg" alt="Eco Mug Smart">
+        <h3>COMPARTMENT ONLY</h3>
+        <p>₱50.00</p>
+      </div>
+      <div class="product-card">
+        <img src="36023658-106e-4d16-8f25-3b718f388b2c.jpg" alt="Eco Mug Smart">
+        <h3>TUMBLER VERSION (16oz)</h3>
+        <p>₱450.00</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT US -->
+  <section class="contact-section">
+    <div class="contact-content">
+      <h2>Contact Us</h2>
+      <p><i class="fa-solid fa-envelope"></i> ecomugco@gmail.com</p>
+      <p><i class="fa-solid fa-phone"></i> +63 9188762434</p>
+      <p><i class="#">© 2025 EcoMug. All rights reserved</i></p>
+
+      <div class="contact-icons">
+        <a href="https://www.facebook.com/profile.php?id=61583452924163" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/eco.mug.co/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@ecomug.co" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // SLIDER
+    const slides = document.querySelectorAll('.slide');
+    let index = 0;
+    document.querySelector('.next').addEventListener('click', () => {
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+    });
+    document.querySelector('.prev').addEventListener('click', () => {
+      slides[index].classList.remove('active');
+      index = (index - 1 + slides.length) % slides.length;
+      slides[index].classList.add('active');
+    });
+    setInterval(() => {
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+    }, 5000);
+
+    // DROPDOWN MENU
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    menuToggle.addEventListener('click', () => dropdownMenu.classList.toggle('active'));
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('active');
+    });
+
+    // CART ICON FUNCTION
+    const cartIcon = document.getElementById("cart-icon");
+    if (cartIcon) cartIcon.addEventListener("click", () => window.location.href = "cart.html");
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+      // Count unique items instead of total quantities
+      const uniqueItems = cart.length;
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) cartCount.textContent = uniqueItems;
+    }
+    updateCartCount();
+
+    // To ensure cart count works
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartCount();
+    });
+  </script>
+
+</body>
+</html>
+

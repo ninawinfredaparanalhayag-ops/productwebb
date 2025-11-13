@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mug - Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, rgba(181, 228, 200, 0.9), rgba(233, 247, 221, 0.9)),
+                  url("green-texture.jpg") center/cover no-repeat;
+      backdrop-filter: blur(6px);
+      min-height: 100vh;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(244, 247, 243, 0.9);
+      padding: 15px 40px;
+      border-bottom: 1px solid #dce7d8;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    header a {
+      color: #2f572c;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    main {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .checkout-box {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+    }
+
+    .checkout-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.25);
+      margin-bottom: 15px;
+      border-radius: 12px;
+      padding: 15px 20px;
+    }
+
+    .checkout-item img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-info {
+      flex: 1;
+      text-align: left;
+      margin-left: 15px;
+    }
+
+    .item-info h3 {
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .item-info p {
+      color: #b6ffb6;
+      font-size: 14px;
+    }
+
+    /* Details Section */
+    .details-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .address-group {
+      position: relative;
+    }
+
+    .edit-address-btn {
+      position: absolute;
+      right: 10px;
+      top: 35px;
+      background: #3f8b3d;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.3s;
+    }
+
+    .edit-address-btn:hover {
+      background: #47a346;
+    }
+
+    /* CHANGED: Labels to black */
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+      color: #000000; /* Changed to black */
+      font-weight: 500;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d4e8d1;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #333;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    /* CHANGED: Address input to single line */
+    #address {
+      height: auto; /* Single line height */
+      resize: none; /* Disable resizing */
+    }
+
+    input:focus, select:focus, #address:focus {
+      border-color: #4fa94d;
+      box-shadow: 0 0 8px rgba(79,169,77,0.3);
+    }
+
+    /* 🔥 Enhanced visibility for totals */
+    .total {
+      margin-top: 25px;
+      font-size: 22px;
+      color: #145514;
+      font-weight: 700;
+      text-align: right;
+      max-width: 800px;
+      width: 100%;
+      text-shadow: 0 0 10px rgba(182, 255, 182, 0.6);
+      letter-spacing: 0.5px;
+    }
+
+    .confirm-btn {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #6bbf59, #3f8b3d);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .confirm-btn:hover {
+      background: linear-gradient(135deg, #77c86a, #47a346);
+      transform: scale(1.05);
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      color: #2f572c;
+    }
+
+    .success-icon {
+      font-size: 64px;
+      color: #47a346;
+      margin-bottom: 20px;
+    }
+
+    .modal-buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #3f8b3d;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Order Details Styles */
+    .order-details {
+      text-align: left;
+      margin: 20px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #47a346;
+    }
+
+    .order-section {
+      margin-bottom: 15px;
+    }
+
+    .order-section h4 {
+      color: #2f572c;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .order-items {
+      margin: 10px 0;
+    }
+
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .order-item:last-child {
+      border-bottom: none;
+    }
+
+    .order-summary {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid #2f572c;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+
+    .summary-total {
+      font-weight: bold;
+      font-size: 18px;
+      color: #2f572c;
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+      }
+      .total {
+        text-align: center;
+      }
+      .modal-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Checkout</h1>
+    <a href="cart.html"><i class="fa-solid fa-arrow-left"></i> Back to Cart</a>
+  </header>
+
+  <main>
+    <div class="checkout-box" id="checkout-box"></div>
+
+    <div class="details-box">
+      <div class="form-group address-group">
+        <label for="address">📍 Delivery Address:</label>
+        <input type="text" id="address" placeholder="Enter your delivery address">
+        <button class="edit-address-btn" id="edit-address-btn">Edit</button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="payment">💳 Payment Method:</label>
+          <select id="payment">
+            <option value="">-- Select Payment Method --</option>
+            <option value="gcash">GCash</option>
+            <option value="cod">Cash on Delivery</option>
+            <option value="card">Debit / Credit Card</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="shipping">🚚 Shipping Fee:</label>
+          <input type="text" id="shipping-fee" value="₱39.00" readonly>
+        </div>
+      </div>
+    </div>
+
+    <!-- Totals -->
+    <div id="shipping" class="total"></div>
+    <div id="total" class="total"></div>
+
+    <button class="confirm-btn" id="confirm-btn">Confirm Purchase</button>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal" id="success-modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fa-solid fa-check-circle"></i>
+      </div>
+      <h2>Order Confirmed! 🎉</h2>
+      <p>Thank you for your purchase!</p>
+      <p>Your order has been successfully placed and will be processed shortly.</p>
+      <div class="modal-buttons">
+        <button class="modal-btn btn-primary" onclick="goToHomePage()">Home</button>
+        <button class="modal-btn btn-secondary" onclick="viewOrderDetails()">View Order Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div class="modal" id="order-details-modal">
+    <div class="modal-content">
+      <div class="success-icon">
+        <i class="fa-solid fa-receipt"></i>
+      </div>
+      <h2>Order Details</h2>
+      
+      <div class="order-details" id="order-details-content">
+        <!-- Order details will be inserted here -->
+      </div>
+      
+      <div class="modal-buttons">
+        <button class="modal-btn btn-primary" onclick="goToHomePage()">Home</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const checkoutBox = document.getElementById("checkout-box");
+    const totalDisplay = document.getElementById("total");
+    const shippingDisplay = document.getElementById("shipping");
+    const confirmBtn = document.getElementById("confirm-btn");
+    const successModal = document.getElementById("success-modal");
+    const orderDetailsModal = document.getElementById("order-details-modal");
+    const addressInput = document.getElementById("address");
+    const editAddressBtn = document.getElementById("edit-address-btn");
+
+    const items = JSON.parse(localStorage.getItem("checkoutItems")) || [];
+    const shippingFee = 39;
+    let currentOrder = null;
+
+    // Load user's saved address
+    function loadUserAddress() {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (currentUser && currentUser.address) {
+        addressInput.value = currentUser.address;
+        addressInput.readOnly = true;
+        editAddressBtn.style.display = 'block';
+      } else {
+        addressInput.readOnly = false;
+        editAddressBtn.style.display = 'none';
+      }
+    }
+
+    // Toggle address editing
+    editAddressBtn.addEventListener('click', function() {
+      if (addressInput.readOnly) {
+        addressInput.readOnly = false;
+        addressInput.focus();
+        this.textContent = 'Save';
+      } else {
+        addressInput.readOnly = true;
+        this.textContent = 'Edit';
+        
+        // Update user's address in localStorage if logged in
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (currentUser) {
+          currentUser.address = addressInput.value.trim();
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          
+          // Update in users array
+          const users = JSON.parse(localStorage.getItem("users")) || [];
+          const userIndex = users.findIndex(u => u.username === currentUser.username);
+          if (userIndex !== -1) {
+            users[userIndex].address = currentUser.address;
+            localStorage.setItem("users", JSON.stringify(users));
+          }
+        }
+      }
+    });
+
+    function renderCheckout() {
+      checkoutBox.innerHTML = "";
+      if (items.length === 0) {
+        checkoutBox.innerHTML = "<p>No items selected for checkout.</p>";
+        totalDisplay.textContent = "";
+        shippingDisplay.textContent = "";
+        confirmBtn.disabled = true;
+        return;
+      }
+
+      let total = 0;
+      items.forEach(item => {
+        total += item.price * item.quantity;
+        const div = document.createElement("div");
+        div.classList.add("checkout-item");
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="item-info">
+            <h3>${item.name}</h3>
+            <p>₱${item.price.toFixed(2)} × ${item.quantity}</p>
+          </div>
+          <strong>₱${(item.price * item.quantity).toFixed(2)}</strong>
+        `;
+        checkoutBox.appendChild(div);
+      });
+
+      const grandTotal = total + shippingFee;
+
+      shippingDisplay.textContent = "🚚 Shipping Fee: ₱" + shippingFee.toFixed(2);
+      totalDisplay.textContent = "💰 Total Amount: ₱" + grandTotal.toFixed(2);
+    }
+
+    function removePurchasedItemsFromCart() {
+      const cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+      const purchasedItemNames = items.map(item => item.name);
+      const updatedCart = cart.filter(item => !purchasedItemNames.includes(item.name));
+      localStorage.setItem("cartDetails", JSON.stringify(updatedCart));
+    }
+
+    function completePurchase() {
+      const address = addressInput.value.trim();
+      const payment = document.getElementById("payment").value;
+
+      if (items.length === 0) {
+        alert("No items to confirm.");
+        return;
+      }
+      if (!address) {
+        alert("Please enter your delivery address.");
+        return;
+      }
+      if (!payment) {
+        alert("Please select a payment method.");
+        return;
+      }
+
+      // Remove purchased items from cart
+      removePurchasedItemsFromCart();
+
+      // Save order details
+      currentOrder = {
+        orderId: 'ECO' + Date.now(),
+        items: [...items], // Copy the items array
+        address: address,
+        payment: payment,
+        shippingFee: shippingFee,
+        subtotal: items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        total: items.reduce((sum, item) => sum + (item.price * item.quantity), 0) + shippingFee,
+        date: new Date().toLocaleString(),
+        status: 'Processing'
+      };
+
+      // Save to order history
+      const orderHistory = JSON.parse(localStorage.getItem("orderHistory")) || [];
+      orderHistory.unshift(currentOrder);
+      localStorage.setItem("orderHistory", JSON.stringify(orderHistory));
+
+      // Clear checkout items
+      localStorage.removeItem("checkoutItems");
+
+      // Show success modal
+      successModal.style.display = 'flex';
+    }
+
+    function goToHomePage() {
+      window.location.href = "frontpage.html";
+    }
+
+    function viewOrderDetails() {
+      if (!currentOrder) return;
+      
+      // Populate order details
+      const orderDetailsContent = document.getElementById('order-details-content');
+      orderDetailsContent.innerHTML = `
+        <div class="order-section">
+          <h4>📦 Order Information</h4>
+          <p><strong>Order ID:</strong> ${currentOrder.orderId}</p>
+          <p><strong>Order Date:</strong> ${currentOrder.date}</p>
+          <p><strong>Status:</strong> <span style="color: #47a346;">${currentOrder.status}</span></p>
+        </div>
+
+        <div class="order-section">
+          <h4>📋 Order Items</h4>
+          <div class="order-items">
+            ${currentOrder.items.map(item => `
+              <div class="order-item">
+                <span>${item.name} (${item.quantity}x)</span>
+                <span>₱${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="order-section">
+          <h4>🏠 Delivery Information</h4>
+          <p><strong>Address:</strong> ${currentOrder.address}</p>
+          <p><strong>Payment Method:</strong> ${currentOrder.payment.toUpperCase()}</p>
+        </div>
+
+        <div class="order-section">
+          <h4>💰 Order Summary</h4>
+          <div class="order-summary">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span>₱${currentOrder.subtotal.toFixed(2)}</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping Fee:</span>
+              <span>₱${currentOrder.shippingFee.toFixed(2)}</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span>Total:</span>
+              <span>₱${currentOrder.total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Show order details modal and hide success modal
+      successModal.style.display = 'none';
+      orderDetailsModal.style.display = 'flex';
+    }
+
+    // Event Listeners
+    confirmBtn.addEventListener("click", completePurchase);
+
+    // Close modals when clicking outside
+    [successModal, orderDetailsModal].forEach(modal => {
+      modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          if (modal === successModal) {
+            goToHomePage();
+          }
+        }
+      });
+    });
+
+    // Initialize
+    loadUserAddress();
+    renderCheckout();
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Nearest Kiosk | Eco Mug</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: url("https://images.unsplash.com/photo-1507914372433-f38f2d7bf4bf?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #2f572c;
+      backdrop-filter: blur(4px);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(244, 247, 243, 0.95);
+      padding: 15px 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      color: #2f572c;
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* Soft green icons styling */
+.nav-icons i,
+.nav-icons a i {
+  color: #2f572c; /* Soft eco green */
+  transition: color 0.3s ease;
+}
+
+.nav-icons i:hover,
+.nav-icons a i:hover {
+  color: #3b6e38; /* Brighter green on hover */
+}
+
+/* Highlight active profile icon */
+.profile-link.active i {
+  color: #3b6e38;
+}
+
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      text-decoration: none;
+      color: #2f572c;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f7f2;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    main {
+      margin-top: 120px;
+      text-align: center;
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #2f572c;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+    }
+
+    .map-container {
+      width: 90%;
+      max-width: 1000px;
+      height: 500px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border: 3px solid #2f572c;
+      margin: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #2f572c;
+      font-size: 14px;
+    }
+
+    .cart-container {
+      position: relative;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+      <h1>ECO MUG</h1>
+    </div>
+
+    <div class="nav-icons">
+      <div class="cart-container">
+        <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+        <div class="cart-badge" id="cart-count">0</div>
+      </div>
+      <a href="profile.html" class="profile-link">
+  <i class="fa-solid fa-user"></i>
+</a>
+
+      <i class="fa-solid fa-bars" id="menu-toggle"></i>
+
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="frontpage.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
+        <a href="fqa.html">F.A.Q</a>
+        <a href="nearest.html">Find Nearest Kiosk</a>
+        <a href="warranty.html">Warranty</a>
+        <a href="index.html">Log out</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <h2>Find Our Nearest Kiosk</h2>
+
+    <div class="map-container">
+      <!-- Google Map with exact location pin and label -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1202.123456789!2d121.04527!3d14.81389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c9c0abcdef01%3A0xabcdef0123456789!2sEco%20Mug%20Kiosk!5e0!3m2!1sen!2sph!4v1696935445298!5m2!1sen!2sph"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <footer>
+      <p>80 Asuncion Diaz, Abella Road, San Jose Del Monte City, Central Luzon</p>
+    </footer>
+  </main>
+
+  <script>
+    // Dropdown toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    menuToggle.addEventListener('click', () => {
+      dropdownMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    });
+
+    // Cart badge count
+    const cartIcon = document.getElementById("cart-icon");
+    if (cartIcon) {
+      cartIcon.addEventListener("click", () => {
+        window.location.href = "cart.html";
+      });
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) cartCount.textContent = totalItems;
+    }
+    updateCartCount();
+  </script>
+</body>
+</html>
+

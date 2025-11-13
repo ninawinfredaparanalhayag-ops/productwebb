@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mug | Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7f3;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f4f7f3;
+      padding: 20px 0;
+      width: 100%;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      color: #2f572c;
+    }
+
+    .logo span {
+      font-size: 12px;
+      color: #777;
+      letter-spacing: 2px;
+    }
+
+    main {
+      margin-top: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #2f572c;
+      margin-bottom: 25px;
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-container input {
+      width: 100%;
+      padding: 12px 40px 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .input-container i {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #888;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .input-container i:hover {
+      color: #2f572c;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2f572c;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.3s;
+    }
+
+    .login-container button:hover {
+      background-color: #1f3e1b;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    .signup-link a {
+      color: #2f572c;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .message {
+      text-align: center;
+      color: red;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .success-message {
+      text-align: center;
+      color: green;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      color: #2f572c;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #777;
+    }
+
+    .close-btn:hover {
+      color: #2f572c;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #2f572c;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+    <div>
+      <h1>ECO MUG</h1>
+      <span>READY, SIP, N' GO!</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="login-container">
+    <h2>Login</h2>
+    <div class="message" id="message"></div>
+
+    <div class="input-container">
+      <input type="text" placeholder="Username" id="username">
+    </div>
+
+    <div class="input-container">
+      <input type="password" placeholder="Password" id="password">
+      <i class="fa-solid fa-eye" id="togglePassword"></i>
+    </div>
+
+    <button onclick="login()">Login</button>
+    
+    <div class="signup-link">
+      Don't have an account? <a onclick="openSignupModal()">Sign Up</a>
+    </div>
+  </div>
+</main>
+
+<!-- Signup Modal -->
+<div class="modal" id="signupModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Create Account</h3>
+      <button class="close-btn" onclick="closeSignupModal()">&times;</button>
+    </div>
+    
+    <div class="form-group">
+      <label for="signupName">Full Name</label>
+      <input type="text" id="signupName" placeholder="Enter your full name">
+    </div>
+    
+    <div class="form-group">
+      <label for="signupUsername">Username</label>
+      <input type="text" id="signupUsername" placeholder="Choose a username">
+    </div>
+    
+    <div class="form-group">
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" placeholder="Create a password">
+    </div>
+    
+    <div class="form-group">
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" placeholder="Enter your email">
+    </div>
+    
+    <div class="form-group">
+      <label for="signupContact">Contact Number</label>
+      <input type="text" id="signupContact" placeholder="+63 912 345 6789">
+    </div>
+    
+    <div class="form-group">
+      <label for="signupAddress">Address</label>
+      <input type="text" id="signupAddress" placeholder="Enter your address">
+    </div>
+    
+    <div class="modal-buttons">
+      <button class="modal-btn btn-secondary" onclick="closeSignupModal()">Cancel</button>
+      <button class="modal-btn btn-primary" onclick="signup()">Create Account</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Show / Hide Password Function
+  const togglePassword = document.getElementById("togglePassword");
+  const passwordInput = document.getElementById("password");
+
+  togglePassword.addEventListener("click", () => {
+    const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+    passwordInput.setAttribute("type", type);
+    togglePassword.classList.toggle("fa-eye");
+    togglePassword.classList.toggle("fa-eye-slash");
+  });
+
+  // Modal Functions
+  function openSignupModal() {
+    document.getElementById('signupModal').style.display = 'flex';
+    // Clear previous inputs
+    document.getElementById('signupName').value = '';
+    document.getElementById('signupUsername').value = '';
+    document.getElementById('signupPassword').value = '';
+    document.getElementById('signupEmail').value = '';
+    document.getElementById('signupContact').value = '';
+    document.getElementById('signupAddress').value = '';
+  }
+
+  function closeSignupModal() {
+    document.getElementById('signupModal').style.display = 'none';
+  }
+
+  // Initialize users array if it doesn't exist
+  function initializeUsers() {
+    if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify([]));
+    }
+  }
+
+  function signup() {
+    initializeUsers();
+    
+    const name = document.getElementById('signupName').value.trim();
+    const username = document.getElementById('signupUsername').value.trim();
+    const password = document.getElementById('signupPassword').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const contact = document.getElementById('signupContact').value.trim();
+    const address = document.getElementById('signupAddress').value.trim();
+
+    // Validate all fields
+    if(!name || !username || !password || !email || !contact || !address) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    
+    // Check if username already exists
+    if(users.some(user => user.username === username)) {
+      alert("Username already exists. Please choose a different username.");
+      return;
+    }
+
+    // Check if email already exists
+    if(users.some(user => user.email === email)) {
+      alert("Email already exists. Please use a different email.");
+      return;
+    }
+
+    // Add new user with profile information
+    const newUser = {
+      name: name,
+      username: username,
+      password: password,
+      email: email,
+      contact: contact,
+      address: address
+    };
+    
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    
+    // Close modal and show success message
+    closeSignupModal();
+    
+    const messageEl = document.getElementById("message");
+    messageEl.style.color = "green";
+    messageEl.textContent = "Account created successfully! You can now log in.";
+    
+    // Clear the login form
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+  }
+
+  function login() {
+    initializeUsers();
+    
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const messageEl = document.getElementById("message");
+
+    // Validate inputs
+    if(!username || !password) {
+      messageEl.style.color = "red";
+      messageEl.textContent = "Please enter both username and password!";
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    
+    // Find user with exact username and password match
+    const user = users.find(u => 
+      u.username === username && u.password === password
+    );
+
+    if(user) {
+      messageEl.style.color = "green";
+      messageEl.textContent = "Login successful! Redirecting...";
+      
+      // Save current user session with all profile data
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      
+      setTimeout(() => {
+        window.location.href = "frontpage.html";
+      }, 1000);
+    } else {
+      messageEl.style.color = "red";
+      messageEl.textContent = "Invalid username or password!";
+    }
+  }
+
+  // Close modal when clicking outside
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('signupModal');
+    if (event.target === modal) {
+      closeSignupModal();
+    }
+  });
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeUsers();
+  });
+</script>
+
+</body>
+</html>

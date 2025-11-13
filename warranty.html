@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warranty | Eco Mug</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f8f9f6;
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f4f7f3;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    .logo span {
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 2px;
+    }
+
+    /* NAV ICONS */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      color: #2f572c;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Soft green icons styling */
+.nav-icons i,
+.nav-icons a i {
+  color: #2f572c; /* Soft eco green */
+  transition: color 0.3s ease;
+}
+
+.nav-icons i:hover,
+.nav-icons a i:hover {
+  color: #3b6e38; /* Brighter green on hover */
+}
+
+/* Highlight active profile icon */
+.profile-link.active i {
+  color: #3b6e38;
+}
+
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      text-decoration: none;
+      color: #2f572c;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f7f2;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    .cart-container {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+
+    /* UPDATED UPPER IMAGE SECTION */
+    .warranty-banner {
+      width: 100%;
+      height: 400px;
+      background: url("7664795c-a6e1-461e-9e4d-5b41d4effc64.jpg") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .warranty-banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 3px solid #2f572c;
+    }
+
+    .warranty-banner h1 {
+      position: relative;
+      color: #fff;
+      font-size: 36px;
+      font-weight: 700;
+      z-index: 1;
+      text-transform: uppercase;
+    }
+
+    /* WARRANTY CONTENT */
+    .warranty-container {
+      max-width: 800px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 40px 50px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .warranty-container h2 {
+      color: #2f572c;
+      font-size: 24px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .warranty-container ol {
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .warranty-container ol li {
+      margin-bottom: 20px;
+    }
+
+    .warranty-container strong {
+      color: #2f572c;
+    }
+
+    .warranty-container ul {
+      margin-top: 10px;
+      margin-left: 25px;
+      list-style-type: disc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #2f572c;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+      <div>
+        <h1>ECO MUG</h1>
+        <span>READY, SIP, N' GO!</span>
+      </div>
+    </div>
+
+    <div class="nav-icons">
+      <div class="cart-container">
+        <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+        <div class="cart-badge" id="cart-count">0</div>
+      </div>
+      <a href="profile.html" class="profile-link">
+  <i class="fa-solid fa-user"></i>
+</a>
+
+      <i class="fa-solid fa-bars" id="menu-toggle"></i>
+
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="frontpage.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
+        <a href="fqa.html">F.A.Q</a>
+        <a href="nearest.html">Find Nearest Kiosk</a>
+        <a href="warranty.html">Warranty</a>
+        <a href="index.html">Log out</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- UPDATED WARRANTY BANNER -->
+  <section class="warranty-banner">
+    <h1>Warranty Claim Policy</h1>
+  </section>
+
+  <!-- WARRANTY CONTENT -->
+  <section class="warranty-container">
+    <ol>
+      <li>
+        <strong>The following conditions are subject to warranty claims:</strong>
+        <ul>
+          <li>Moisture</li>
+          <li>Insulation issue (not retaining temperature)</li>
+          <li>Rusting</li>
+          <li>Rattling sound</li>
+          <li>Leaks due to factory defects</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Claims can be made within 1 year from the date of purchase.</strong>
+      </li>
+      <li>
+        <strong>Original receipt or proof of purchase must be presented when claiming warranty.</strong>
+      </li>
+    </ol>
+  </section>
+
+  <footer>
+    &copy; 2025 Eco Mug. All rights reserved.
+  </footer>
+
+  <script>
+    // Dropdown Menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    menuToggle.addEventListener('click', () => dropdownMenu.classList.toggle('active'));
+
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.remove('active');
+      }
+    });
+
+    // Cart Functionality
+    const cartIcon = document.getElementById("cart-icon");
+    if (cartIcon) cartIcon.addEventListener("click", () => window.location.href = "cart.html");
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) cartCount.textContent = totalItems;
+    }
+    updateCartCount();
+  </script>
+
+</body>
+</html>
+

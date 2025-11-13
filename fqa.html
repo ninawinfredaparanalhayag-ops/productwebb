@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Eco Mug</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f4f7f3;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    .logo span {
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 2px;
+    }
+
+    /* Nav icons */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      color: #2f572c;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Soft green icons styling */
+.nav-icons i,
+.nav-icons a i {
+  color: #2f572c; /* Soft eco green */
+  transition: color 0.3s ease;
+}
+
+.nav-icons i:hover,
+.nav-icons a i:hover {
+  color: #3b6e38; /* Brighter green on hover */
+}
+
+/* Highlight active profile icon */
+.profile-link.active i {
+  color: #3b6e38;
+}
+
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      text-decoration: none;
+      color: #2f572c;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f7f2;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    .cart-container {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+
+    /* TITLE SECTION */
+    .faq-header {
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+
+    .faq-header h2 {
+      font-size: 32px;
+      color: #2f572c;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* FAQ CONTENT */
+    .faq-container {
+      width: 70%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto 50px auto;
+    }
+
+    .faq-item {
+      background-color: #7b8f6b;
+      color: white;
+      border-radius: 50px;
+      margin: 10px 0;
+      padding: 15px 25px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s ease;
+    }
+
+    .faq-item:hover {
+      background-color: #6e825f;
+    }
+
+    .faq-item h3 {
+      font-size: 16px;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .arrow {
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-answer {
+      background-color: #f1f1f1;
+      color: #333;
+      margin: 0 10px 15px 10px;
+      padding: 15px 25px;
+      border-radius: 20px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .active + .faq-answer {
+      display: block;
+    }
+
+    .rotate {
+      transform: rotate(180deg);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+      <div>
+        <h1>ECO MUG</h1>
+        <span>READY, SIP, N' GO!</span>
+      </div>
+    </div>
+
+    <div class="nav-icons">
+      <div class="cart-container">
+        <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+        <div class="cart-badge" id="cart-count">0</div>
+      </div>
+      <a href="profile.html" class="profile-link">
+  <i class="fa-solid fa-user"></i>
+</a>
+
+      <i class="fa-solid fa-bars" id="menu-toggle"></i>
+
+      <!-- Dropdown -->
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="frontpage.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="shop.html">Shop</a>
+        <a href="faq.html">F.A.Q</a>
+        <a href="nearest.html">Find Nearest Kiosk</a>
+        <a href="warranty.html">Warranty</a>
+        <a href="index.html">Log out</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FAQ TITLE -->
+  <div class="faq-header">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+
+  <!-- FAQ CONTENT -->
+  <div class="faq-container">
+    <div class="faq-item">
+      <h3>What is the purpose of the compartment located underneath the mug?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      The compartment underneath the mug serves the vital function of allowing users to store small essentials, such as sugar, tea bags, coffee, or snacks.
+    </div>
+
+    <div class="faq-item">
+      <h3>What is the primary environmental benefit of using the Mugtainer?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      The Mugtainer is an eco-friendly product made from biodegradable and recyclable materials. It is designed to reduce the use of single-use plastics and disposable cups, which helps to minimize environmental impact and supports a zero-waste lifestyle.
+    </div>
+
+    <div class="faq-item">
+      <h3>Does the Mugtainer help keep drinks hot or cold?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      Yes, the mug is designed to maintain insulation. The use of stainless steel as an inner lining enhances temperature retention, allowing drinks to stay hot or cold for extended periods.
+    </div>
+
+    <div class="faq-item">
+      <h3>Is the storage compartment easy to clean and convenient to use?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      Yes, the detachable compartment is both convenient to use and easy to clean using sponge or brush.
+    </div>
+
+    <div class="faq-item">
+      <h3>What are the compartments for?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      The separate compartments are designed for storing small accompaniments, such as medicine, coffee sticks, snacks (nuts, seeds, etc.), and tea bags.
+    </div>
+
+    <div class="faq-item">
+      <h3>Is the Mugtainer leakproof?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      Mugtainers are designed with a secure, tight-fitting lid (often with a silicone seal) to be leak-resistant or leakproof for travel. However, always ensure the lid is properly secured before placing it in a bag.
+    </div>
+
+    <div class="faq-item">
+      <h3>How much liquid does the Mugtainer hold?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      Capacity varies by model, but most are typically sized like a standard travel mug, ranging from 12 oz (350 ml) to 16 oz (470 ml).
+    </div>
+
+    <div class="faq-item">
+      <h3>How long is the warranty period?</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="faq-answer">
+      The warranty period is a maximum of 1 year.
+    </div>
+  </div>
+
+  <script>
+    // FAQ Dropdown
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const arrow = item.querySelector('.arrow');
+        item.classList.toggle('active');
+        arrow.classList.toggle('rotate');
+        const answer = item.nextElementSibling;
+        if (answer.style.display === 'block') {
+          answer.style.display = 'none';
+        } else {
+          answer.style.display = 'block';
+        }
+      });
+    });
+
+    // Hamburger Dropdown Menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    menuToggle.addEventListener('click', () => dropdownMenu.classList.toggle('active'));
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) dropdownMenu.classList.remove('active');
+    });
+
+    // Cart Functionality
+    const cartIcon = document.getElementById("cart-icon");
+    if (cartIcon) cartIcon.addEventListener("click", () => window.location.href = "cart.html");
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const cartCount = document.getElementById("cart-count");
+      if (cartCount) cartCount.textContent = totalItems;
+    }
+    updateCartCount();
+  </script>
+
+</body>
+</html>
+

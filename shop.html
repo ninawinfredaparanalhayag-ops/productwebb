@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eco Mug Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #d8f3dc, #b7e4c7, #95d5b2);
+      background-attachment: fixed;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(244, 247, 243, 0.9);
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .logo h1 {
+      font-size: 22px;
+      color: #2f572c;
+    }
+
+    .logo span {
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 2px;
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+      color: #2f572c;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-icons i,
+    .nav-icons a i {
+      color: #2f572c;
+      transition: color 0.3s ease;
+    }
+
+    .nav-icons i:hover,
+    .nav-icons a i:hover {
+      color: #3b6e38;
+    }
+
+    .profile-link.active i {
+      color: #3b6e38;
+    }
+
+    .cart-container {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: none;
+      flex-direction: column;
+      width: 180px;
+      z-index: 200;
+    }
+
+    .dropdown-menu a {
+      text-decoration: none;
+      color: #2f572c;
+      padding: 12px 20px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f2f7f2;
+    }
+
+    .dropdown-menu.active {
+      display: flex;
+    }
+
+    .shop-title {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .shop-title h2 {
+      display: inline-block;
+      border: 2px solid #fff;
+      color: #2f572c;
+      padding: 12px 35px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 1px;
+      font-size: 22px;
+    }
+
+    /* Product layout - side by side */
+    .product-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin: 60px auto;
+      max-width: 1000px;
+      padding: 0 20px;
+    }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      backdrop-filter: blur(6px);
+    }
+
+    .product-item img {
+      width: 230px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .product-details {
+      flex: 1;
+      color: #2f572c;
+    }
+
+    .product-details h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .product-details p {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .add-cart-btn {
+      background: linear-gradient(135deg, #6bbf59, #3f8b3d);
+      border: none;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .add-cart-btn:hover {
+      background: linear-gradient(135deg, #77c86a, #47a346);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 800px) {
+      .product-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      .product-item img {
+        width: 80%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <a href="frontpage.html">
+      <img src="2337b154-a3ac-486d-ab9f-7a3d5c61fff1.jpg" alt="Eco Mug Logo">
+    </a>
+    <div>
+      <h1>ECO MUG</h1>
+      <span>READY, SIP, N' GO!</span>
+    </div>
+  </div>
+
+  <div class="nav-icons">
+    <div class="cart-container">
+      <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+      <div class="cart-badge" id="cart-count">0</div>
+    </div>
+    <a href="profile.html" class="profile-link">
+      <i class="fa-solid fa-user"></i>
+    </a>
+    <i class="fa-solid fa-bars" id="menu-toggle"></i>
+
+    <div class="dropdown-menu" id="dropdownMenu">
+      <a href="frontpage.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="shop.html">Shop</a>
+      <a href="fqa.html">F.A.Q</a>
+      <a href="nearest.html">Find Nearest Kiosk</a>
+      <a href="warranty.html">Warranty</a>
+      <a href="index.html">Log out</a>
+    </div>
+  </div>
+</header>
+
+<section class="shop-section">
+  <div class="shop-title">
+    <h2>Shop Our Eco-Friendly Mugs</h2>
+  </div>
+
+  <div class="product-container">
+
+    <!-- Mugtainer -->
+    <div class="product-item">
+      <img src="943a2d32-6eb4-4536-b95e-ae0998c08a5c.jpg" alt="Mugtainer 11oz">
+      <div class="product-details">
+        <h3>Mugtainer (11oz)</h3>
+        <p><strong>Price:</strong> ₱250.00</p>
+        <p><strong>Material:</strong> Bamboo (body), Stainless Steel (inner lining), Silicone Rubber (lid seal)</p>
+        <p><strong>Capacity:</strong> 11 ounces</p>
+        <p><strong>Temperature Retention:</strong> Keeps beverages hot for 12 hours and cold for 24 hours</p>
+        <p><strong>Features:</strong> Leak-proof lid, eco-friendly, durable, and crack-resistant</p>
+        <button class="add-cart-btn"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
+      </div>
+    </div>
+
+    <!-- Customized Mugtainer -->
+    <div class="product-item">
+      <img src="a8468218-7781-45ac-8fb0-f03eb8bdd3e7.jpg" alt="Customized Mugtainer">
+      <div class="product-details">
+        <h3>Customized Mugtainer (11oz)</h3>
+        <p><strong>Price:</strong> ₱300.00</p>
+        <p><strong>Material:</strong> Bamboo (body), Stainless Steel (inner lining), Silicone Rubber (lid seal)</p>
+        <p><strong>Capacity:</strong> 11 ounces</p>
+        <p><strong>Temperature Retention:</strong> Keeps beverages hot for 12 hours and cold for 24 hours</p>
+        <p><strong>Features:</strong> Leak-proof lid, eco-friendly, durable, and crack-resistant</p>
+        <button class="add-cart-btn"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
+      </div>
+    </div>
+
+    <!-- Tumbler Version -->
+    <div class="product-item">
+      <img src="36023658-106e-4d16-8f25-3b718f388b2c.jpg" alt="Tumbler Version">
+      <div class="product-details">
+        <h3>Tumbler Version (16oz)</h3>
+        <p><strong>Price:</strong> ₱450.00</p>
+        <p><strong>Material:</strong> Bamboo (body), Stainless Steel (inner lining), Silicone Rubber (lid seal)</p>
+        <p><strong>Capacity:</strong> 16 ounces</p>
+        <p><strong>Temperature Retention:</strong> Keeps beverages hot for 12 hours and cold for 24 hours</p>
+        <p><strong>Features:</strong> Leak-proof lid, eco-friendly, durable, and crack-resistant</p>
+        <button class="add-cart-btn"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
+      </div>
+    </div>
+
+    <!-- Compartment Only -->
+    <div class="product-item">
+      <img src="a343dd71-8c0e-4ecf-85c5-1240faa6769b.jpg" alt="Compartment Only">
+      <div class="product-details">
+        <h3>Compartment Only</h3>
+        <p><strong>Price:</strong> ₱50.00</p>
+        <p><strong>Material:</strong> Bamboo</p>
+        <p><strong>Features:</strong> Eco-friendly, durable, and crack-resistant</p>
+        <button class="add-cart-btn"><i class="fa-solid fa-cart-plus"></i> ADD TO CART</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const cartCount = document.getElementById("cart-count");
+const cartIcon = document.getElementById("cart-icon");
+const addButtons = document.querySelectorAll(".add-cart-btn");
+
+let cart = JSON.parse(localStorage.getItem("cartDetails")) || [];
+updateCartCount();
+
+function updateCartCount() {
+  // Count unique items instead of total quantities
+  const uniqueItems = cart.length;
+  cartCount.textContent = uniqueItems;
+}
+
+addButtons.forEach(button => {
+  button.addEventListener("click", () => {
+
+    // ✅ Login check added here
+    const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!loggedInUser) {
+      alert("Please log in to add items to your cart.");
+      window.location.href = "index.html"; // redirect to your login page
+      return;
+    }
+
+    const card = button.closest(".product-item");
+    const name = card.querySelector("h3").textContent;
+    
+    // FIXED: Proper price extraction
+    const priceText = card.querySelector("p").textContent;
+    const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+    
+    const image = card.querySelector("img").src;
+
+    // Debug logging
+    console.log("Adding to cart:", { name, price, image });
+
+    // Check if item already exists in cart
+    const existingItemIndex = cart.findIndex(item => item.name === name);
+    
+    if (existingItemIndex !== -1) {
+      // Item exists, just increase quantity
+      cart[existingItemIndex].quantity += 1;
+    } else {
+      // New item, add to cart
+      cart.push({ 
+        name, 
+        price, 
+        image, 
+        quantity: 1,
+        selected: false
+      });
+    }
+
+    localStorage.setItem("cartDetails", JSON.stringify(cart));
+    updateCartCount();
+
+    // Visual feedback
+    button.innerHTML = '<i class="fa-solid fa-check"></i> ADDED';
+    button.style.background = "#47a346";
+    setTimeout(() => {
+      button.innerHTML = '<i class="fa-solid fa-cart-plus"></i> ADD TO CART';
+      button.style.background = "linear-gradient(135deg, #6bbf59, #3f8b3d)";
+    }, 1500);
+  });
+});
+
+cartIcon.addEventListener("click", () => {
+  window.location.href = "cart.html";
+});
+
+const menuToggle = document.getElementById('menu-toggle');
+const dropdownMenu = document.getElementById('dropdownMenu');
+menuToggle.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('active');
+});
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    dropdownMenu.classList.remove('active');
+  }
+});
+</script>
+
+</body>
+</html>
+
