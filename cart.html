@@ -336,7 +336,7 @@
         <a href="fqa.html">F.A.Q</a>
         <a href="nearest.html">Find Nearest Kiosk</a>
         <a href="warranty.html">Warranty</a>
-        <a href="index.html">Log out</a>
+        <a href="frontpage.html">Log out</a>
       </div>
     </div>
   </header>
@@ -352,6 +352,14 @@
     </div>
     <button class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
   </main>
+
+  <script>
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    alert("Please log in to access this page.");
+    window.location.href = "index.html";
+  }
+</script>
 
   <script>
   let cart = JSON.parse(localStorage.getItem("cartDetails")) || [];

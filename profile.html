@@ -244,7 +244,7 @@
         <a href="fqa.html">F.A.Q</a>
         <a href="nearest.html">Find Nearest Kiosk</a>
         <a href="warranty.html">Warranty</a>
-        <a href="index.html">Log out</a>
+        <a href="frontpage.html">Log out</a>
       </div>
     </div>
   </header>
@@ -266,6 +266,14 @@
     <button class="save-btn" id="saveBtn" style="display:none;">Save Changes</button><br>
     <a href="frontpage.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
   </div>
+
+  <script>
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    alert("Please log in to access this page.");
+    window.location.href = "index.html";
+  }
+</script>
 
   <script>
     // DROPDOWN MENU

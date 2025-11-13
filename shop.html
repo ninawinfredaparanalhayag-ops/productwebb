@@ -249,7 +249,7 @@
       <a href="fqa.html">F.A.Q</a>
       <a href="nearest.html">Find Nearest Kiosk</a>
       <a href="warranty.html">Warranty</a>
-      <a href="index.html">Log out</a>
+      <a href="frontpage.html">Log out</a>
     </div>
   </div>
 </header>
@@ -317,6 +317,36 @@
 
   </div>
 </section>
+
+<script>
+  function requireLogin() {
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser) {
+      alert("Please log in to continue!");
+      // Redirect to your login page
+      window.location.href = "index.html";
+      return false; // stop further action
+    }
+    return true; // user is logged in
+  }
+
+  // Example: Add this to your "Add to Cart" buttons
+  document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+    button.addEventListener("click", (e) => {
+      if (!requireLogin()) return;
+      // Continue with add-to-cart logic here
+    });
+  });
+
+  // Example: Prevent checkout if not logged in
+  const checkoutBtn = document.getElementById("checkout-btn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", (e) => {
+      if (!requireLogin()) return;
+      window.location.href = "checkout.html";
+    });
+  }
+</script>
 
 <script>
 const cartCount = document.getElementById("cart-count");

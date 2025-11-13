@@ -398,7 +398,7 @@
       <a href="fqa.html">F.A.Q</a>
       <a href="nearest.html">Find Nearest Kiosk</a>
       <a href="warranty.html">Warranty</a>
-      <a href="index.html">Log out</a>
+      <a href="frontpage.html">Log out</a>
     </div>
   </div>
 </header>
@@ -514,6 +514,23 @@
       updateCartCount();
     });
   </script>
+<script>
+  // Logout Function
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Remove the current user session
+      localStorage.removeItem("currentUser");
+
+      alert("You have been logged out.");
+
+      // Redirect to frontpage.html
+      window.location.href = "frontpage.html";
+    });
+  }
+</script>
 
 </body>
 </html>

@@ -400,6 +400,14 @@
   </div>
 
   <script>
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    alert("Please log in to access this page.");
+    window.location.href = "index.html";
+  }
+</script>
+
+  <script>
     const checkoutBox = document.getElementById("checkout-box");
     const totalDisplay = document.getElementById("total");
     const shippingDisplay = document.getElementById("shipping");
